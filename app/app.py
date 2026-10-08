@@ -18,6 +18,7 @@ from src.models.logistic_regression import SolarLogisticRegression
 from src.models.random_forest import SolarRandomForest
 from src.models.xgboost_model import SolarXGBoost
 from src.models.lstm import SolarLSTMWrapper
+from src.models.cnn_1d import SolarCNN1DWrapper
 
 # Page Configuration
 st.set_page_config(
@@ -104,6 +105,9 @@ def load_application_artifacts():
 
     if os.path.exists("models/lstm.pt"):
         models["LSTM"] = SolarLSTMWrapper.load("models/lstm.pt")
+
+    if os.path.exists("models/cnn_1d.pt"):
+        models["1D CNN"] = SolarCNN1DWrapper.load("models/cnn_1d.pt")
 
     # Load metrics reports if available
     metrics_summary = {}
@@ -195,12 +199,13 @@ def main():
         "Logistic Regression": "logistic_regression",
         "Random Forest": "random_forest",
         "XGBoost": "xgboost",
-        "LSTM": "lstm"
+        "LSTM": "lstm",
+        "1D CNN": "cnn_1d"
     }
     model_key = model_key_map.get(selected_model_name, "logistic_regression")
     saved_threshold = metrics_summary.get(model_key, {}).get("threshold", 0.5)
 
-    if selected_model_name == "LSTM":
+    if selected_model_name in ("LSTM", "1D CNN"):
         X_seq_input = np.expand_dims(X_window_scaled, axis=0)  # shape: (1, 24, num_features)
         probability = float(selected_model.predict_proba(X_seq_input)[0])
     else:

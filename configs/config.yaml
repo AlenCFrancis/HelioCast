@@ -28,6 +28,11 @@ lstm:
   num_layers: 2
   dropout: 0.2
 
+cnn:
+  channels: [32, 64]
+  kernel_size: 3
+  dropout: 0.2
+
 evaluation:
   primary_metric: "pr_auc"
   metrics_dir: "results/metrics"
