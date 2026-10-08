@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter
+.ipynb_checkpoints
+
+# PyTest
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary outputs (keep directory structure)
+data/raw/*
+!data/raw/.gitkeep
+models/*.joblib
+models/*.pt
+!models/.gitkeep
+results/metrics/*.json
+!results/metrics/.gitkeep
+results/plots/*.png
+!results/plots/.gitkeep

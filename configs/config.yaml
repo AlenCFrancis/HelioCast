@@ -1,0 +1,34 @@
+project:
+  name: "solar-flare-prediction"
+  seed: 42
+
+data:
+  raw_path: "data/raw/solar_observations_raw.csv"
+  processed_path: "data/processed/solar_features.csv"
+  timestamp_col: "timestamp"
+  target_col: "target_m_plus_24h"
+  splits:
+    train_ratio: 0.70
+    val_ratio: 0.15
+    test_ratio: 0.15
+
+forecast:
+  history_hours: 24
+  forecast_hours: 24
+
+training:
+  batch_size: 32
+  epochs: 50
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  patience: 7
+
+lstm:
+  hidden_size: 128
+  num_layers: 2
+  dropout: 0.2
+
+evaluation:
+  primary_metric: "pr_auc"
+  metrics_dir: "results/metrics"
+  plots_dir: "results/plots"
