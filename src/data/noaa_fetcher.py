@@ -8,16 +8,16 @@ import os
 import requests
 import numpy as np
 import pandas as pd
-from typing import Tuple, Dict, Any
+from typing import Tuple, Dict, Any, Optional
 
 NOAA_XRAY_URL = "https://services.swpc.noaa.gov/json/goes/primary/xrays-7-day.json"
 NOAA_PROTON_URL = "https://services.swpc.noaa.gov/json/goes/primary/integral-protons-7-day.json"
 NOAA_SOLAR_CYCLE_URL = "https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json"
 
-def fetch_noaa_swpc_data(output_path: str = "data/processed/solar_features.csv") -> pd.DataFrame:
+def fetch_noaa_swpc_data(output_path: Optional[str] = "data/processed/solar_features.csv") -> pd.DataFrame:
     """
     Fetch real solar observation time series directly from NOAA SWPC APIs,
-    process feature columns, construct 24h M+ flare target labels, and save to CSV.
+    process feature columns, construct 24h M+ flare target labels, and optionally save to CSV.
     """
     print(f"[NOAA SWPC Data Fetcher] Fetching real GOES X-ray observation data from NOAA SWPC...")
     
@@ -101,11 +101,12 @@ def fetch_noaa_swpc_data(output_path: str = "data/processed/solar_features.csv")
     if len(df_hourly) < 2000:
         df_hourly = extend_noaa_observation_series(df_hourly, target_hours=4380)
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    df_hourly.to_csv(output_path, index=False)
+    if output_path is not None:
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        df_hourly.to_csv(output_path, index=False)
+        print(f"[NOAA SWPC Data Fetcher] Saved dataset to: {output_path}")
 
     print(f"[NOAA SWPC Data Fetcher] Successfully generated dataset from real NOAA SWPC observations!")
-    print(f"Output File : {output_path}")
     print(f"Shape       : {df_hourly.shape}")
     print(f"Time Range  : {df_hourly['timestamp'].min()} to {df_hourly['timestamp'].max()}")
     print(f"Target Positive Ratio: {df_hourly['target_m_plus_24h'].mean():.4f} ({df_hourly['target_m_plus_24h'].sum()} / {len(df_hourly)})")
