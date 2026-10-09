@@ -1,0 +1,17 @@
+{
+  "threshold": 0.58,
+  "roc_auc": 0.8923,
+  "pr_auc": 0.3383,
+  "precision": 0.3333,
+  "recall": 0.4928,
+  "f1_score": 0.3977,
+  "tss": 0.3771,
+  "far": 0.6667,
+  "brier_score": 0.0991,
+  "confusion_matrix": {
+    "tn": 520,
+    "fp": 68,
+    "fn": 35,
+    "tp": 34
+  }
+}

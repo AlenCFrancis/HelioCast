@@ -4,6 +4,14 @@ Provides interactive timestamp-based inference using pre-trained ML/DL models.
 """
 
 import os
+import sys
+from pathlib import Path
+
+# Add project root directory to sys.path so 'src' can always be imported
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import json
 import numpy as np
 import pandas as pd
@@ -157,8 +165,11 @@ st.markdown("""
 @st.cache_resource
 def load_application_artifacts():
     """Load configuration, dataset, preprocessor, and saved models."""
-    config = load_config()
-    data_path = config["data"]["processed_path"]
+    config_path = str(PROJECT_ROOT / "configs" / "config.yaml")
+    config = load_config(config_path)
+    
+    raw_data_path = config["data"]["processed_path"]
+    data_path = raw_data_path if os.path.isabs(raw_data_path) else str(PROJECT_ROOT / raw_data_path)
     
     if not os.path.exists(data_path):
         st.error(f"Processed dataset file not found at: {data_path}. Please run training first.")
@@ -167,9 +178,9 @@ def load_application_artifacts():
     df = load_solar_data(data_path=data_path, config=config)
     
     # Load preprocessor
-    scaler_path = "models/scaler.joblib"
+    scaler_path = str(PROJECT_ROOT / "models" / "scaler.joblib")
     if not os.path.exists(scaler_path):
-        st.error(f"Scaler artifact not found at {scaler_path}. Please train models first.")
+        st.error(f"Scaler artifact not found at {scaler_path}. Please train models first (e.g. python -m src.training.classical --model all).")
         st.stop()
         
     preprocessor = SolarDataPreprocessor.load(scaler_path=scaler_path, config=config)
@@ -177,24 +188,29 @@ def load_application_artifacts():
     # Load models dictionary
     models = {}
     
-    if os.path.exists("models/logistic_regression.joblib"):
-        models["Logistic Regression"] = SolarLogisticRegression.load("models/logistic_regression.joblib")
+    lr_path = str(PROJECT_ROOT / "models" / "logistic_regression.joblib")
+    if os.path.exists(lr_path):
+        models["Logistic Regression"] = SolarLogisticRegression.load(lr_path)
 
-    if os.path.exists("models/random_forest.joblib"):
-        models["Random Forest"] = SolarRandomForest.load("models/random_forest.joblib")
+    rf_path = str(PROJECT_ROOT / "models" / "random_forest.joblib")
+    if os.path.exists(rf_path):
+        models["Random Forest"] = SolarRandomForest.load(rf_path)
 
-    if os.path.exists("models/xgboost.joblib"):
-        models["XGBoost"] = SolarXGBoost.load("models/xgboost.joblib")
+    xgb_path = str(PROJECT_ROOT / "models" / "xgboost.joblib")
+    if os.path.exists(xgb_path):
+        models["XGBoost"] = SolarXGBoost.load(xgb_path)
 
-    if os.path.exists("models/lstm.pt"):
-        models["LSTM"] = SolarLSTMWrapper.load("models/lstm.pt")
+    lstm_path = str(PROJECT_ROOT / "models" / "lstm.pt")
+    if os.path.exists(lstm_path):
+        models["LSTM"] = SolarLSTMWrapper.load(lstm_path)
 
-    if os.path.exists("models/cnn_1d.pt"):
-        models["1D CNN"] = SolarCNN1DWrapper.load("models/cnn_1d.pt")
+    cnn_path = str(PROJECT_ROOT / "models" / "cnn_1d.pt")
+    if os.path.exists(cnn_path):
+        models["1D CNN"] = SolarCNN1DWrapper.load(cnn_path)
 
     # Load metrics reports if available
     metrics_summary = {}
-    metrics_dir = "results/metrics"
+    metrics_dir = str(PROJECT_ROOT / "results" / "metrics")
     if os.path.exists(metrics_dir):
         for f in os.listdir(metrics_dir):
             if f.endswith(".json"):
