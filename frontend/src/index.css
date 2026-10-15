@@ -108,6 +108,22 @@ body {
   animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* SVG bar growth (benchmark charts) */
+@keyframes barGrow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.bar-grow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: barGrow 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-grow { animation: none; }
+}
+
 /* Focus outline for accessibility */
 button:focus-visible, input:focus-visible, select:focus-visible {
   outline: 2px solid #14b8a6;

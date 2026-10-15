@@ -3,18 +3,15 @@ import {
   Sun, 
   Activity, 
   BarChart3, 
-  BookOpen, 
   RefreshCw, 
   AlertTriangle, 
-  X,
-  HelpCircle
+  X
 } from 'lucide-react';
 
 import apiService from './services/api';
 import PredictionPanel from './components/PredictionPanel';
 import TemporalChart from './components/TemporalChart';
 import MetricsMatrix from './components/MetricsMatrix';
-import ThresholdGuide from './components/ThresholdGuide';
 
 export default function App() {
   // Navigation State with localStorage persistence
@@ -231,28 +228,10 @@ export default function App() {
             <span>Model Benchmarks</span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => setActiveTab('how-it-works')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-all flex items-center space-x-1.5 cursor-pointer ${
-              activeTab === 'how-it-works' ? 'glass-tab-active' : 'glass-tab-inactive'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5 text-slate-300" />
-            <span>How It Works</span>
-          </button>
         </nav>
 
         {/* Right: Quick Action & Refresh */}
         <div className="flex items-center space-x-2">
-          <button
-            type="button"
-            onClick={() => setActiveTab('how-it-works')}
-            className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-800/70 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors hidden md:flex items-center space-x-1 cursor-pointer"
-          >
-            <HelpCircle className="w-3 h-3 text-teal-400" />
-            <span>Guide</span>
-          </button>
 
           <button
             type="button"
@@ -343,15 +322,8 @@ export default function App() {
 
         {/* TAB 2: MODEL BENCHMARKS (Full Width Scrollable View) */}
         {activeTab === 'benchmarks' && (
-          <div className="h-full overflow-y-auto pr-1 pb-4 space-y-6 animate-fadeIn">
+          <div className="h-full overflow-y-auto pr-1 pb-4 animate-fadeIn">
             <MetricsMatrix metrics={metrics} />
-          </div>
-        )}
-
-        {/* TAB 3: HOW IT WORKS (Full Width Scrollable View) */}
-        {activeTab === 'how-it-works' && (
-          <div className="h-full overflow-y-auto pr-1 pb-4 space-y-6 animate-fadeIn">
-            <ThresholdGuide metrics={metrics} />
           </div>
         )}
       </main>
