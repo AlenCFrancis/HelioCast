@@ -13,7 +13,7 @@ useful space-weather indicators in a clear, organized interface.
 
 The application features a decoupled, production-grade architecture combining a **FastAPI backend** and a high-density, **single-screen landscape React.js operational workstation**.</p>
 
-# Problem Statement
+## Problem Statement
 <p align="justify">Space-weather information is available from several scientific
 organizations and monitoring services. However, users may find it
 difficult to identify the latest conditions, understand technical
@@ -23,7 +23,7 @@ HelioCast addresses this challenge by organizing selected space-weather
 information in one place and presenting it in a way that is easier to
 understand.</p>
 
-# Objectives
+## Objectives
 - Provide a central interface for exploring current space-weather
   conditions.
 - Present relevant solar-activity information and monitoring
@@ -37,7 +37,7 @@ understand.</p>
 - Keep the project maintainable so additional data sources and
   features can be added later.
   
-# Key Features
+## Key Features
 The features below describe the intended project scope. The exact
 availability of each feature depends on the current implementation.
 - Space-weather overview: A consolidated view of selected
