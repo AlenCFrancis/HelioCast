@@ -1,9 +1,62 @@
 # HelioCast: Solar Flare Forecasting System
 
-An operational space weather forecasting application predicting whether an **M-class or higher solar flare ($\ge \text{M1.0}$) will erupt within the next 24 hours** using historical SDO/HMI and GOES solar magnetogram parameters.
+<p align="justify">Space weather describes changing conditions in space driven largely by
+solar activity. Events such as solar flares, coronal mass ejections, and
+variations in the solar wind can influence Earth's magnetosphere and
+ionosphere. Depending on their strength and direction, these events may
+affect radio communications, satellite operations, navigation systems,
+and aurora visibility.
+HelioCast aims to make this information more accessible through a
+unified dashboard. Instead of requiring users to navigate several
+scientific data pages independently, the project is intended to present
+useful space-weather indicators in a clear, organized interface.
 
-The application features a decoupled, production-grade architecture combining a **FastAPI backend** and a high-density, **single-screen landscape React.js operational workstation**.
+The application features a decoupled, production-grade architecture combining a **FastAPI backend** and a high-density, **single-screen landscape React.js operational workstation**.</p>
 
+## Problem Statement
+<p align="justify">Space-weather information is available from several scientific
+organizations and monitoring services. However, users may find it
+difficult to identify the latest conditions, understand technical
+measurements, and connect different observations to their possible
+effects.
+HelioCast addresses this challenge by organizing selected space-weather
+information in one place and presenting it in a way that is easier to
+understand.</p>
+
+## Objectives
+- Provide a central interface for exploring current space-weather
+  conditions.
+- Present relevant solar-activity information and monitoring
+  indicators.
+- Help users understand geomagnetic activity, solar wind, and
+  aurora-related forecasts.
+- Make scientific data more approachable through clear labels and
+  visualizations.
+- Encourage awareness of space-weather events and their possible
+  technological impacts.
+- Keep the project maintainable so additional data sources and
+  features can be added later.
+  
+## Key Features
+The features below describe the intended project scope. The exact
+availability of each feature depends on the current implementation.
+- Space-weather overview: A consolidated view of selected
+  space-weather indicators.
+- Solar activity monitoring: Information about solar flares and
+  related activity when available from configured sources.
+- Geomagnetic activity: Display of relevant geomagnetic
+  measurements or storm indicators.
+- Solar-wind monitoring: Presentation of available solar-wind
+  measurements, such as speed, density, or magnetic-field data.
+- Aurora-related information: Forecast or activity information
+  where a suitable source is integrated.
+- Data visualization: Charts, status indicators, cards, or other
+  visual elements supported by the frontend.
+- External data integration: Use of space-science APIs or feeds to
+  retrieve observations and forecasts.
+- Expandable design: A structure that can accommodate additional
+  indicators and data sources without requiring a redesign of the
+  whole project.
 ---
 
 ## 1. System Architecture
@@ -11,7 +64,7 @@ The application features a decoupled, production-grade architecture combining a 
 ```text
 +--------------------------------------------------------------------------------+
 |                           SOLAR OBSERVATION ARCHIVE                            |
-|             (Hourly GOES X-ray Flux & SDO/HMI Magnetogram Parameters)           |
+|             (Hourly GOES X-ray Flux & SDO/HMI Magnetogram Parameters)          |
 +--------------------------------------------------------------------------------+
                                        |
                                        v
@@ -36,14 +89,14 @@ The application features a decoupled, production-grade architecture combining a 
                                        v
 +--------------------------------------------------------------------------------+
 |                     FROZEN VALIDATION THRESHOLD TUNING                         |
-|   Thresholds optimized on 15% Validation Split to maximize TSS (Recall - FPR)   |
+|   Thresholds optimized on 15% Validation Split to maximize TSS (Recall - FPR)  |
 |     Permanently frozen prior to test benchmarking and operational inference    |
 +--------------------------------------------------------------------------------+
                                        |
                                        v
 +--------------------------------------------------------------------------------+
 |                          FASTAPI SERVICE (backend/)                            |
-|        - Preloads Scaler, Dataset, and PyTorch / Scikit-Learn Model Weights     |
+|        - Preloads Scaler, Dataset, and PyTorch / Scikit-Learn Model Weights    |
 |        - Endpoints: /api/v1/predict, /api/v1/telemetry, /api/v1/metrics        |
 |        - Configurable CORS Origins & Environment Bindings                      |
 +--------------------------------------------------------------------------------+
