@@ -51,6 +51,20 @@ export const PARAMETER_CATALOG = {
     description: 'Temporal rate of escalation marking rapid flare impulsive phases.',
     isPrimary: false,
   },
+  xrsb_rate_3h: {
+    shortName: '3h Rate of Change',
+    fullName: '3-Hour Longwave Flux Temporal Derivative',
+    unit: 'W/m²·h',
+    description: 'Slower escalation trend smoothing out single-hour spikes.',
+    isPrimary: false,
+  },
+  xrsa_max_6h: {
+    shortName: '6h Max Shortwave',
+    fullName: '6-Hour Peak Shortwave X-Ray Flux',
+    unit: 'W/m²',
+    description: 'Highest shortwave intensity reached over the preceding 6 hours.',
+    isPrimary: false,
+  },
   xrsb_std_6h: {
     shortName: '6h Turbulence',
     fullName: '6-Hour Flux Standard Deviation',

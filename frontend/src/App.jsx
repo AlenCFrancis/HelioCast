@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 
 import apiService from './services/api';
-import PredictionPanel from './components/PredictionPanel';
-import TemporalChart from './components/TemporalChart';
+import RiskBanner from './components/RiskBanner';
+import FeatureDashboard from './components/FeatureDashboard';
 import MetricsMatrix from './components/MetricsMatrix';
 
 export default function App() {
@@ -277,18 +277,21 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 1: OPERATIONAL FORECAST (LANDSCAPE 2-COLUMN VIEWPORT FIT) */}
+        {/* TAB 1: OPERATIONAL FORECAST (RISK BANNER + ALL-FEATURE BAR GRID, VIEWPORT FIT) */}
         {activeTab === 'forecast' && (
-          <div className="h-full min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch overflow-hidden">
-            {/* Left Column (5 Cols): Hero Result + Controls */}
-            <div className="lg:col-span-5 h-full overflow-y-auto pr-1 flex flex-col justify-between space-y-3.5">
-              {initialLoading ? (
-                <div className="space-y-4 animate-pulse">
-                  <div className="glass-panel rounded-xl p-6 h-52 bg-slate-900/40 border border-slate-800" />
-                  <div className="glass-panel rounded-xl p-6 h-72 bg-slate-900/40 border border-slate-800" />
+          <div className="h-full min-h-0 flex flex-col gap-3 overflow-y-auto lg:overflow-hidden animate-fadeIn">
+            {initialLoading ? (
+              <>
+                <div className="h-24 shrink-0 rounded-xl border border-slate-800 bg-slate-900/40 animate-pulse" />
+                <div className="flex-1 min-h-0 grid grid-cols-2 lg:grid-cols-4 lg:grid-rows-3 gap-2.5">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div key={i} className="min-h-[160px] lg:min-h-0 rounded-xl border border-slate-800 bg-slate-900/40 animate-pulse" />
+                  ))}
                 </div>
-              ) : (
-                <PredictionPanel
+              </>
+            ) : (
+              <>
+                <RiskBanner
                   models={models}
                   timestamps={timestamps}
                   selectedModel={selectedModel}
@@ -303,20 +306,12 @@ export default function App() {
                   autoRun={autoRun}
                   setAutoRun={setAutoRun}
                 />
-              )}
-            </div>
-
-            {/* Right Column (7 Cols): Telemetry Parameter Picker + KPI Row + Enlarge Chart */}
-            <div className="lg:col-span-7 h-full overflow-hidden flex flex-col">
-              {initialLoading ? (
-                <div className="glass-panel rounded-xl p-6 h-full bg-slate-900/40 border border-slate-800 animate-pulse" />
-              ) : (
-                <TemporalChart
+                <FeatureDashboard
                   telemetry={telemetry}
                   featureNames={summary?.feature_names || []}
                 />
-              )}
-            </div>
+              </>
+            )}
           </div>
         )}
 
