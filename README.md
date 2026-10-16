@@ -64,7 +64,7 @@ availability of each feature depends on the current implementation.
 ```text
 +--------------------------------------------------------------------------------+
 |                           SOLAR OBSERVATION ARCHIVE                            |
-|             (Hourly GOES X-ray Flux & SDO/HMI Magnetogram Parameters)           |
+|             (Hourly GOES X-ray Flux & SDO/HMI Magnetogram Parameters)          |
 +--------------------------------------------------------------------------------+
                                        |
                                        v
@@ -89,14 +89,14 @@ availability of each feature depends on the current implementation.
                                        v
 +--------------------------------------------------------------------------------+
 |                     FROZEN VALIDATION THRESHOLD TUNING                         |
-|   Thresholds optimized on 15% Validation Split to maximize TSS (Recall - FPR)   |
+|   Thresholds optimized on 15% Validation Split to maximize TSS (Recall - FPR)  |
 |     Permanently frozen prior to test benchmarking and operational inference    |
 +--------------------------------------------------------------------------------+
                                        |
                                        v
 +--------------------------------------------------------------------------------+
 |                          FASTAPI SERVICE (backend/)                            |
-|        - Preloads Scaler, Dataset, and PyTorch / Scikit-Learn Model Weights     |
+|        - Preloads Scaler, Dataset, and PyTorch / Scikit-Learn Model Weights    |
 |        - Endpoints: /api/v1/predict, /api/v1/telemetry, /api/v1/metrics        |
 |        - Configurable CORS Origins & Environment Bindings                      |
 +--------------------------------------------------------------------------------+
